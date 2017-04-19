@@ -7,18 +7,18 @@
 		    <div class="box col-md-8 lg-4-reset">
 		        <div class="box-inner content-box">
 					<div class="btn-group" role="group" aria-label="..." style="width:100%;background-color:#eee;">
-					  <button type="button" class="btn btn-hover" style="width:17%"><a ui-sref="attendance">考勤</a></button>
-					  <button type="button" class="btn btn-hover" style="width:17%"><a ui-sref="question" class="body-color">提问</a></button>
-					  <button type="button" class="btn btn-hover  choosen" style="width:17%"><a ui-sref="focus">专注</a></button>
-					  <button type="button" class="btn btn-hover" style="width:16%"><a ui-sref="group" class="body-color">组别</a></button>
-					  <button type="button" class="btn btn-hover" style="width:17%"><a ui-sref="homework">个人作业</a></button>
-					  <button type="button" class="btn btn-hover" style="width:17%"><a ui-sref="resource" class="body-color">资源中心</a></button>
+					  <button type="button" class="btn btn-hover" style="width:17%;height:34px;padding:0px"><a ui-sref="attendance" style="padding: 8px 23px;">考勤</button></a>
+					  <button type="button" class="btn btn-hover" style="width:17%;height:34px;padding:0px"><a ui-sref="question" style="padding: 8px 23px;" class="body-color">提问</a></button>
+					  <button type="button" class="btn btn-hover choosen" style="width:17%;height:34px;padding:0px"><a ui-sref="focus" style="padding: 8px 23px;">专注</a></button>
+					  <button type="button" class="btn btn-hover" style="width:16%;height:34px;padding:0px"><a ui-sref="group" style="padding: 8px 23px;" class="body-color">组别</a></button>
+					  <button type="button" class="btn btn-hover" style="width:17%;height:34px;padding:0px"><a ui-sref="homework" style="padding: 8px 12px;">个人作业</a></button>
+					  <button type="button" class="btn btn-hover" style="width:17%;height:34px;padding:0px"><a ui-sref="resource" style="padding: 8px 12px;" class="body-color">资源中心</a></button>
 					</div>
 					
 					<!-- 备课中心-专注-专注设置begin -->
 					<div class="box-content center fix-height">
 		            	<!-- <br><br> -->
-		            	<div ng-show="isStart">
+		            	<div ng-show="isChosen">
 		            		<br><br>
 							<div class="center"><h3 class="">请选择</h3></div>
 			                <br><br><br>
@@ -110,12 +110,15 @@
 			                <br>
 						</div>
 						<!-- 备课中心-专注-结果end -->
+
 		            </div>
-					
 
-					
-
-		        </div>
+		        </div><br>
+		        <button type="submit" ng-hide="isStart" class="btn btn-default course-btn" ng-click="startClass()">开课</button>
+		        <p class="center" ng-show="isStart">
+	                <button type="submit" class="btn btn-default course-btn">收集总结反馈</button>
+	                <button type="submit" class="btn btn-default course-btn space-80" ng-click="endClass()">结课</button>
+	            </p>
 		    </div>
 		    <div class="box col-md-4 lg-4-reset">
 		        <div class="box-inner">

@@ -13,8 +13,21 @@ define(function (require) {
         $scope.init = function () {
             $scope.activeCourse = common.Session.activeCourse;
             $scope.activeCourseTime = common.Session.activeCourseTime;
+            $scope.isStart = common.Session.isStart || false;
             // $scope.randomImg();
             getStudentList();
+        }
+
+        //开课
+        $scope.startClass = function(){
+            $scope.isStart = true;
+            common.Session.isStart = $scope.isStart;
+        }
+
+        //结课
+        $scope.endClass = function () {
+            $scope.isStart = false;
+            common.Session.isStart = $scope.isStart;
         }
 
         //获取随机列表
@@ -30,6 +43,10 @@ define(function (require) {
 
         //开启随机提问
         $scope.startRandom = function(){
+            if(!$scope.isStart){
+                returnMessage("请先开课，再使用此功能！");
+                return;
+            }
             $scope.isStartRandom = true;
             $scope.randomImg();
             getRandomStudent();
@@ -61,6 +78,10 @@ define(function (require) {
 
         //发放惊喜
         $scope.giveBonus = function(){
+            if(!$scope.isStart){
+                returnMessage("请先开课，再使用此功能！");
+                return;
+            }
             var url = "/web/randomAsk/giveBonus";
             WebApi.Post(url, {
                 c_id: $scope.activeCourse.c_id,

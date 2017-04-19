@@ -19,6 +19,7 @@ define(function (require) {
         //开课
         $scope.startClass = function(){
         	$scope.isStart = true;
+            common.Session.isStart = $scope.isStart;
         	getCode();
         }
 
@@ -196,6 +197,7 @@ define(function (require) {
         	$scope.isSend = flag1;
         	$scope.isReceived = flag2;
         	$scope.isStart = false;
+            common.Session.isStart = $scope.isStart;
         }
 
         //用户提示弹出框

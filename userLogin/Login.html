@@ -20,6 +20,24 @@
 		    margin-bottom: 11px;
 		    float: left;
 		}
+		#mainPage .bg-color{
+			background-color: #169b70;
+			background-color: #169b70 !important;
+		}
+		#mainPage .color{
+			color: #169b70;
+		}
+		.login-layout{
+			background-color: #FFF;
+		}
+		.alert-info {
+		    color: #fff;
+		    background-color: #169b70;
+		    border-color: #169b70;
+		}
+		.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+			border-top: 2px solid #169b70;
+		}
     </style>
 	<body class="login-layout" id="mainPage">
 		<div class="main-container">
@@ -30,8 +48,8 @@
 							<div class="center">
 								<h1>
 									<i class="icon-leaf green"></i>
-									<span class="white">Welcome to </span>
-									<span class="red">Palnter</span>
+									<span class="color">Welcome to </span>
+									<span class="red">Planter</span>
 								</h1>
 								<h4 class="blue"></h4>
 							</div>
@@ -39,9 +57,10 @@
 							<div class="space-6"></div>
 
 							<div class="position-relative">
-								<div id="login-box" class="login-box visible widget-box no-border">
+								<div id="login-box" class="login-box visible widget-box no-border bg-color">
 									<div class="widget-body">
 										<div class="widget-main" id="userLogin">
+											<br>
 											<ul class="nav nav-tabs" id="myTab">
 							                    <li class="" id="tabRole"><a href="#teacher">老师帐号</a></li>
 							                    <li class=""><a href="#student">学生帐号</a></li>
@@ -51,53 +70,53 @@
 											<div id="myTabContent" class="tab-content">
 							                    <div class="tab-pane" id="teacher">
 							                        <fieldset class="box-content">
-							                            <div class="alert alert-info">
+							                           <!--  <div class="alert alert-info bg-color" style="">
 							                                请输入教师姓名及密码！
-							                            </div>
+							                            </div> -->
 							                            <div class="input-group input-group-lg">
-							                                <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+							                                <span class="input-group-addon"><i class="glyphicon glyphicon-user color"></i></span>
 							                                <input type="text" class="form-control" placeholder="姓名" id="teaUserName">
 							                            </div>
 							                            <div class="clearfix"></div><br>
 
 							                            <div class="input-group input-group-lg clearfix">
-							                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+							                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock color"></i></span>
 							                                <input type="password" class="form-control" placeholder="密码" id="teaPassword">
 							                            </div>
 							                            <div class="clearfix"></div><br>
 							                            <p class="center">
-							                                <button type="submit" class="btn btn-success" style="width: 40%;background-color: #169b70;border-color: #87b870;" onclick="login('tea')">登录</button>
-							                                <button type="submit" class="btn btn-success" style="width: 40%;background-color: #2fa4e7;border-color: #2fa4e7;" onclick="showRegister()">注册</button>
+							                                <button type="submit" class="btn bg-color" style="width: 40%;border-color:#169b70" onclick="login('tea')">登录</button>
+							                                <button type="submit" class="btn bg-color" style="width: 40%;border-color:#169b70" onclick="showRegister()">注册</button>
 							                            </p>
 							                        </fieldset>
 							                    </div>
 							                    <div class="tab-pane active" id="student">
 							                        <fieldset class="box-content">
-							                            <div class="alert alert-info">
+							                            <!-- <div class="alert alert-info">
 							                                请输入学生学号及密码！
-							                            </div>
+							                            </div> -->
 							                            <div class="input-group input-group-lg">
-							                                <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+							                                <span class="input-group-addon"><i class="glyphicon glyphicon-user color"></i></span>
 							                                <input type="text" class="form-control" placeholder="学号" id="stuUserName">
 							                            </div>
 							                            <div class="clearfix"></div><br>
 
 							                            <div class="input-group input-group-lg clearfix">
-							                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+							                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock color"></i></span>
 							                                <input type="password" class="form-control" placeholder="密码" id="stuPassword">
 							                            </div>
 							                            <div class="clearfix"></div><br>
 
 							                            <p class="center">
-							                                <button type="submit" class="btn btn-primary" style="width: 40%;background-color: #2fa4e7;border-color: #2fa4e7;" onclick="login('stu')">登录</button>
-							                                <button type="submit" class="btn btn-primary" style="width: 40%;background-color: #2fa4e7;border-color: #2fa4e7;" onclick="showRegister()">注册</button>
+							                                <button type="submit" class="btn bg-color" style="width: 40%;border-color: #169b70;" onclick="login('stu')">登录</button>
+							                                <button type="submit" class="btn bg-color" style="width: 40%;border-color: #169b70;" onclick="showRegister()">注册</button>
 							                            </p>
 							                        </fieldset>
 							                    </div>
 							                </div>
 
 											<div class="social-or-login center">
-												<span class="bigger-110">welcome to Planter</te>
+												<span class="bigger-110 color">welcome to Planter</te>
 											</div>
 										</div>
 										<!-- /widget-main -->
@@ -139,9 +158,9 @@
 											</div>
 										</div>
 
-										<div class="toolbar clearfix">
+										<!-- <div class="toolbar clearfix" style="background-color:#dd5a43;">
 											<div></div>
-										</div>
+										</div> -->
 									</div>
 									<!-- /widget-body -->
 								</div>

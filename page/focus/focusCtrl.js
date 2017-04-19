@@ -12,8 +12,21 @@ define(function (require) {
         $scope.init = function () {
             $scope.activeCourse = common.Session.activeCourse;
             $scope.activeCourseTime = common.Session.activeCourseTime;
-            $scope.isStart = true;
+            $scope.isStart = common.Session.isStart;
+            $scope.isChosen = true;
             $scope.stop = true;
+        }
+
+        //开课
+        $scope.startClass = function(){
+            $scope.isStart = true;
+            common.Session.isStart = $scope.isStart;
+        }
+
+        //结课
+        $scope.endClass = function () {
+            $scope.isStart = false;
+            common.Session.isStart = $scope.isStart;
         }
 
         //开启普通专注
@@ -25,7 +38,7 @@ define(function (require) {
         	$scope.isStartFocus = true;
             $scope.isGroup = false;
             $scope.isCommon = false;
-            $scope.isStart = false;
+            $scope.isChosen = false;
             $scope.startTime = new Date().Format("yyyy-MM-dd hh:mm:ss");
             var url = "/web/attention/normalAttentionBegin";
             WebApi.Post(url, {
@@ -47,7 +60,7 @@ define(function (require) {
         $scope.startGroupFocus = function(){
             $scope.isStartFocus = true;
             $scope.isGroup = false;
-            $scope.isStart = false;
+            $scope.isChosen = false;
             var checkedGroup = "";
             $scope.startTimeG = new Date().Format("yyyy-MM-dd hh:mm:ss");
             $scope.groupList.forEach(function(item){
@@ -122,7 +135,11 @@ define(function (require) {
 
         //选择专注类型
         $scope.chooseType = function(type){
-            $scope.isStart = false;
+            if(!$scope.isStart){
+                returnMessage("请先开课，再使用此功能！");
+                return;
+            }
+            $scope.isChosen = false;
             if(type == 'isCommon'){
                 $scope.isCommon = true;
                 $scope.isGroup = false;
@@ -135,7 +152,7 @@ define(function (require) {
 
         //返回选择类型界面
         $scope.backType = function(type){
-            $scope.isStart = true;
+            $scope.isChosen = true;
             if(type == 'isCommon'){
                 $scope.isCommon = false;
             }else{
@@ -151,7 +168,7 @@ define(function (require) {
                 $scope.stop = false;
             }else{
                 $scope.isStartFocus = false;
-                $scope.isStart = true;
+                $scope.isChosen = true;
                 $scope.stop = true;
             }
             WebApi.Post(url, {
