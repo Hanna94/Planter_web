@@ -87,8 +87,8 @@ define(function (require) {
 
     .value("common", {
         Config: {
-            // Host: "http://118.89.48.183:8080/Planter",
-            Host: "http://192.168.235.50:8080",
+            Host: "http://118.89.48.183:8080/Planter",
+            // Host: "http://192.168.235.50:8080",
             SignalSpan: 1000,//信号监听时间间隔  
             BeforSpan: 600,
             LoginUrl: "/login"
