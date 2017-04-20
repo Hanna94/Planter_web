@@ -13,24 +13,62 @@ define(function (require) {
         $scope.init = function () {
             $scope.activeCourse = common.Session.activeCourse;
             $scope.activeCourseTime = common.Session.activeCourseTime;
-            $scope.isStart = common.Session.isStart || false;
+            $scope.isStart = common.Session.isStart;
             // $scope.randomImg();
             getStudentList();
         }
 
         //开课
         $scope.startClass = function(){
-            $scope.isStart = true;
-            common.Session.isStart = $scope.isStart;
+            var url = "/web/course/classBegin";
+            WebApi.Post(url, {
+                class_begin_time: new Date().Format("yyyy-MM-dd hh:mm:ss"),
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId
+            }, function (d) {
+                /*class_begin_status
+                public static final int CLASS_STATUS_OPEN = 1; // 表示已开课
+                public static final int CLASS_STATUS_CLOSE = 0; // 表示已结课
+                */
+                if(d.data.class_begin_status == 1){
+                    returnMessage("开课成功！");
+                    $scope.isStart = true;
+                    common.Session.isStart = $scope.isStart;
+                    if(common.Session.openClassId){
+                        return true;
+                    }else{
+                        common.Session.openClassId = d.data.open_class_id; 
+                    }
+                }else{
+                    returnMessage("开课失败，请重新开课！");
+                }
+            });
         }
 
         //结课
         $scope.endClass = function () {
-            $scope.isStart = false;
-            common.Session.isStart = $scope.isStart;
+            var url = "/web/course/classEnd";
+            WebApi.Post(url, {
+                class_end_time: new Date().Format("yyyy-MM-dd hh:mm:ss"),
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId,
+                open_class_id : common.Session.openClassId
+            }, function (d) {
+                /*class_begin_status
+                public static final int CLASS_STATUS_OPEN = 1; // 表示已开课
+                public static final int CLASS_STATUS_CLOSE = 0; // 表示已结课
+                */
+                if(d.data.class_begin_status == 0){
+                    returnMessage("结课成功！");
+                    $scope.isStart = false;
+                    common.Session.isStart = $scope.isStart;
+                }else{
+                    returnMessage("结课失败，请重新结课！");
+                }
+            });
         }
 
-        //获取随机列表
+        //获取学生列表
         function getStudentList() {
             var url = "/web/randomAsk/enterAskModule";
             WebApi.Post(url, {
@@ -58,7 +96,8 @@ define(function (require) {
             WebApi.Post(url, {
                 c_id: $scope.activeCourse.c_id,
                 t_id :teacherId,
-                random_ask_time : new Date().Format("yyyy-MM-dd hh:mm:ss")
+                random_ask_time : new Date().Format("yyyy-MM-dd hh:mm:ss"),
+                open_class_id : common.Session.openClassId
             }, function (d) {
                 if(d.data){
                     setTimeout(function(){
@@ -86,7 +125,8 @@ define(function (require) {
             WebApi.Post(url, {
                 c_id: $scope.activeCourse.c_id,
                 t_id :teacherId,
-                s_id : $scope.givenStudent.s_id
+                s_id : $scope.givenStudent.s_id,
+                open_class_id : common.Session.openClassId
             }, function (d) {
                 if(d.data.random_ask_bonus_status == 1){
                      returnMessage("发放惊喜成功，恭喜" + $scope.givenStudent.student_name + "同学得到此次奖励！");

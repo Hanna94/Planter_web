@@ -38,6 +38,10 @@ define(function (require) {
 
         //开通分组
         $scope.openGroup = function(){
+            if((!$scope.groupMin) || (!$scope.groupMax)){
+                returnMessage("请输入完整组别范围！");
+                return;
+            }
             var url = "/web/group/openGroup";
             WebApi.Post(url, {
                 t_id :teacherId,

@@ -101,10 +101,13 @@ define(function (require) {
                 course_code: $scope.courseCode,
                 t_id :teacherId
             }, function (d) {
-                if(d.error_code == 200){
-                    returnMessage("添加课程",course_name + "添加成功！")
+                if(d.data.result == 1){
+                    returnMessage("课程添加成功！");
                     getCourseList();
-                    common.Config.courseId = data.c_id;
+                    // common.Config.courseId = d.data.c_id;
+                }
+                else{
+                    returnMessage("课程添加失败，请重新添加！");
                 }
             });
         }

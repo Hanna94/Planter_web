@@ -8,9 +8,10 @@ define(function (require) {
         $scope.init = function () {
             $scope.activeCourse = common.Session.activeCourse;
         	$scope.activeCourseTime = common.Session.activeCourseTime;
+            $scope.isStart = common.Session.isStart;
             $scope.isSend = false;
             $scope.isReceived = false;
-            $scope.isStart = false;
+            // $scope.isStart = false;
             // $scope.attendanceList = [];
 
             // getLocation();
@@ -18,19 +19,66 @@ define(function (require) {
 
         //开课
         $scope.startClass = function(){
-        	$scope.isStart = true;
-            common.Session.isStart = $scope.isStart;
-        	getCode();
+            var url = "/web/course/classBegin";
+            WebApi.Post(url, {
+                class_begin_time: new Date().Format("yyyy-MM-dd hh:mm:ss"),
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId
+            }, function (d) {
+                /*class_begin_status
+                public static final int CLASS_STATUS_OPEN = 1; // 表示已开课
+                public static final int CLASS_STATUS_CLOSE = 0; // 表示已结课
+                */
+                if(d.data.class_begin_status == 1){
+                    returnMessage("开课成功！");
+                    $scope.isStart = true;
+                    common.Session.isStart = $scope.isStart;
+                    if(common.Session.openClassId){
+                        return true;
+                    }else{
+                        common.Session.openClassId = d.data.open_class_id; 
+                    }
+                    getCode();
+                }else{
+                    returnMessage("开课失败，请重新开课！");
+                }
+            });
+        }
+
+        //结课，显示已发送界面
+        $scope.endClass = function (flag1,flag2) {
+            var url = "/web/course/classEnd";
+            WebApi.Post(url, {
+                class_begin_time: new Date().Format("yyyy-MM-dd hh:mm:ss"),
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId,
+                open_class_id : common.Session.openClassId
+            }, function (d) {
+                /*class_begin_status
+                public static final int CLASS_STATUS_OPEN = 1; // 表示已开课
+                public static final int CLASS_STATUS_CLOSE = 0; // 表示已结课
+                */
+                if(d.data.class_begin_status == 0){
+                    returnMessage("结课成功！");
+                    $scope.isSend = flag1;
+                    $scope.isReceived = flag2;
+                    $scope.isStart = false;
+                    common.Session.isStart = $scope.isStart;
+                }else{
+                    returnMessage("结课失败，请重新结课！");
+                }
+            });
         }
 
         //获取签到码
         //{"error_code":200,"reason":"desc","data":{"attendance_code":"644577"}}
         function getCode (){
-        	var url = "/web/course/classOpen";
+        	var url = "/web/attendance/getAttendanceCode";
         	WebApi.Post(url, {
                 class_open_time: new Date().Format("yyyy-MM-dd hh:mm:ss"),
                 c_id: $scope.activeCourse.c_id,
-                t_id :teacherId
+                t_id :teacherId,
+                open_class_id : common.Session.openClassId
             }, function (d) {
                 if(d.error_code == 200){
                     $scope.attendanceCode = d.data.attendance_code;
@@ -61,7 +109,8 @@ define(function (require) {
         	WebApi.Post(url, {
                 attendance_code: $scope.attendanceCode,
                 c_id: $scope.activeCourse.c_id,
-                t_id :teacherId
+                t_id :teacherId,
+                open_class_id : common.Session.openClassId
             }, function (d) {
                 if(d.data.attendance_code_send_status == 1){
                     returnMessage("考勤码发送成功，请您耐心等待考勤结果！");
@@ -192,13 +241,7 @@ define(function (require) {
                 $scope.showDetail(student);
             });
         }
-        //结课，显示已发送界面
-        $scope.endClass = function (flag1,flag2) {
-        	$scope.isSend = flag1;
-        	$scope.isReceived = flag2;
-        	$scope.isStart = false;
-            common.Session.isStart = $scope.isStart;
-        }
+
 
         //用户提示弹出框
         function returnMessage(content){
