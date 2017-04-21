@@ -365,16 +365,15 @@ define(function (require) {
                     if(data.t_id == teacherId && data.c_id == $scope.activeCourse.c_id
                         && data.attendance_check_end == false){
                         var len = document.getElementById('attendanceList').innerHTML+=
-                    "<li style='padding: 10px 15px;'>" + data.student_name + "考勤成功，目前"
-                     + data.attendance_count + "次出勤，" + data.absence_count + "次缺勤</li>";
+                    "<li style='padding: 10px 15px;'>" + data.student_name + "考勤成功，获得相应考勤奖励！</li>";
 
                     }else if(data.attendance_check_end == true){
-                    var len = document.getElementById('attendanceList').innerHTML+=
-                    "<li style='padding: 10px 15px;'>" + data.student_name + "考勤成功，目前" + 
-                    data.attendance_count + "次出勤，" + data.absence_count + "次缺勤</li>";
+                    // var len = document.getElementById('attendanceList').innerHTML+=
+                    // "<li style='padding: 10px 15px;'>" + data.student_name + "考勤成功，目前" + 
+                    // data.attendance_count + "次出勤！</li>";
 
-                    var end = document.getElementById('endAttendance').innerHTML+= "共" +
-                     data.attendance_total_count + "人出席，" + data.absence_total_count + "人缺席";
+                    var end = document.getElementById('endAttendance').innerHTML = "考勤结束，此次考勤共" +
+                     data.attendance_total_count + "人出席！";
                     }    
                     break;
                 case 4: //专注推送类（专注列表）

@@ -1,6 +1,6 @@
 <div class="row" ng-controller="attendanceCtrl" ng-init="init()">
 	<div class="top">
-		<h4 class="left">{{activeCourse.course_name}} {{activeCourseTime}}</h4>
+		<h4 class="left">{{activeCourse.course_name}}({{activeCourse.course_code}}) {{activeCourseTime}}</h4>
 		<!-- <p id="demo">点击这个按钮，获得您的坐标：</p>
 		<button ng-click="location()">试一下</button> -->
 		<!-- 课程课表begin -->
@@ -27,7 +27,7 @@
 		                    <div class="" style="width: 80%;margin: 20px auto;border: 1px solid #e3e3e3;">
 		                        <ul class="nav nav-list" id="attendanceList">
 		                        </ul>
-		                        <span style="position: relative;display: block;padding: 10px 15px;color: #169b70;background-color: #eee" id="endAttendance"></span>
+		                        <span style="position: relative;display: block;padding: 10px 15px;color: #169b70;background-color: #eee" id="endAttendance">考勤尚未结束，请勿离开此页面！</span>
 		                    </div>
 		                </div>
 		               
@@ -78,20 +78,20 @@
 		            <table class="table table-striped table-bordered table-reset">
 		            	<tr>
 		            		<td>
-		            			<span><strong>08</strong></span><br>
-		            			<span>5月</span><br>
-		            			<span>2012</span>
+		            			<span><strong>20</strong></span><br>
+		            			<span>4月</span><br>
+		            			<span>2017</span>
 		            		</td>
-		            		<td> XXX考勤成功，目前10次出勤，2次缺勤 XXX考勤成功，目前10次出勤
+		            		<td> 今日有新作业公布，请各位同学及时查看！
 		            		</td>
 		            	</tr>
 		            	<tr>
 		            		<td>
-		            			<span><strong>08</strong></span><br>
-		            			<span>5月</span><br>
-		            			<span>2012</span>
+		            			<span><strong>19</strong></span><br>
+		            			<span>4月</span><br>
+		            			<span>2017</span>
 		            		</td>
-		            		<td> XXX考勤成功，目前10次出勤，2次缺勤 XXX考勤成功，目前10次出勤
+		            		<td> 今日有新作业公布，请各位同学及时查看！
 		            		</td>
 		            	</tr>
 					</table>

@@ -1,7 +1,7 @@
 .container{margin-top: -30px;}
 .topBar{width:80%;height: auto; padding-left: 15%;}
 .content{width:100%;height: auto;}
-.logo{width: 5em;height: 5em;background-color: #169b70;margin:20px 0px 5px 0px;float: right;}
+.logo{width: 70px;height: 70px;background-color: #169b70;margin:20px 0px 5px 0px;float: right;color: #FFF;line-height: 70px;font-size: 18px;}
 .nav{padding-top: 30px;}
 .nav>li>a {
     padding: 15px 15px;

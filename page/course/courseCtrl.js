@@ -113,10 +113,9 @@ define(function (require) {
         }
 
         //用户提示弹出框
-        function returnMessage(title,content){
+        function returnMessage(content){
             $("#modal-errorInfo").modal('show');
-            $scope.infoTitle = title;
-            $scope.infoContent = content;
+            $("#infoContent").html(content);
         }
 
         // common.Config.returnMessage = returnMessage();
