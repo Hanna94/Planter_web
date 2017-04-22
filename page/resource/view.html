@@ -35,17 +35,24 @@
 			                    <div class="col-md-1">
 			                    	<div class="left">
 			                    		<a ng-click="deleteConform(r)" class="pointer" style="margin-left:-5px;"><i class="glyphicon glyphicon-trash resource-icon"></i></a>
-			                        	<label>{{r.resource_like_count}}</label>
+			                        	<!-- <label>{{r.resource_like_count}}</label> -->
 			                    	</div>
 			                    </div>
 		                    </div>
 		            	</div>
 		                <!-- <input type="file" name=""> -->
                     	<!-- <div id="uploadResource"></div> -->
-                    	<div class="webuploader-pick pointer" style="">
+                    	<form name="form5" action="/" method="post" enctype="multipart/form-data">
+						    <input type="file" id="file_AjaxFile" name="file_AjaxFile">
+						    <input type="button" value="upload" ng-click="fileUpload()"/><span id="sp_AjaxFile"></span>
+
+
+						    <!--上传进度：<span id="sp_fileUploadProgress">0%</span>-->
+						</form>
+                    	<!-- <div class="webuploader-pick pointer" style="">
 		          			上传资源 <i class="glyphicon glyphicon-open icon-color pointer"></i>
                         	<input class="pointer" style="position:absolute;width:100px;height:40px;top:0px;left:0px; opacity: 0;z-index:1000;" type="file" ng-file-select name="" id="file_AjaxFile" multiple/>
-		          		</div>
+		          		</div> -->
 		            </div>
 
 					<!-- 备课中心-资源中心end -->

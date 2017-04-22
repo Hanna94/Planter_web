@@ -523,6 +523,7 @@ app.factory('$fileUploader', ['$compile', '$rootScope', '$http', '$window', func
             $http.defaults.transformResponse.forEach(function(transformFn) {
                 response = transformFn(response);
             });
+            
             return response;
         }
     };

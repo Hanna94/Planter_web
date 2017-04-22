@@ -58,11 +58,56 @@ define(function (require) {
             $("#modal-errorInfo").modal('show');
             $("#infoContent").html(content);
         }
+        $scope.fileUpload = function(){
+            fileUploadAjax()
+        }
+        function fileUploadAjax() {
+            if ($("#file_AjaxFile").val().length > 0) {
+                //progressInterval=setInterval(getProgress,500);
+                $.ajaxFileUpload({
+                    url: 'http://192.168.235.50:8080/FileUpload/fileUpload_ajax', //用于文件上传的服务器端请求地址
+                    type: "post",
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'file_AjaxFile', //文件上传空间的id属性  <input type="file" id="file1" name="file" />
+                    dataType: 'application/json', //返回值类型 一般设置为json
+                    data: {                    
+                        't_id': teacherId,
+                        'c_id': $scope.activeCourse.c_id                    },
+                    success: function (data)  //服务器成功响应处理函数
+                    {
+                        console.log("1");
+                        getResourceList();
+                        // var jsonObject = eval('(' + data + ')');
+                        // $("#sp_AjaxFile").html(" Upload Success ！ filePath:" + jsonObject.filePath);
+                    },
+                    error: function (data /*status, e*/)//服务器响应失败处理函数
+                    {
+                        console.log("0");
+                        // getResourceList();
+                    }
+                });//end ajaxfile
+            }
+            else {
+                alert("请选择文件!");
+            }
+        }
+        //    var progressInterval = null;
+        //    var i=0;
+        //    var getProgress=function (){
+        //        $.get("/FileUpload/fileUploadprogress",
+        //            {},
+        //            function (data) {
+        //                $("#sp_fileUploadProgress").html(i+++data);
+        //                if(data==100||i==100)
+        //                    clearInterval(progressInterval);
+        //            }
+        //        );
+        //    }
 
         //上传资源
         //插件ajaxfileupload.js
         $('#uploadResource').diyUpload({
-	        url:'/FileUpload/fileUpload_ajax',
+	        url:'http://192.168.235.50:8080/FileUpload/fileUpload_ajax',
 	        success:function( data ) {
 	            console.info( data );
 	            //完成上传后再次获取资源列表
@@ -87,7 +132,7 @@ define(function (require) {
             vm.uploader = $fileUploader.create({
             scope: $scope,
             url: 'http://192.168.235.50:8080/FileUpload/fileUpload_ajax',
-            headers: {'Content-Type':'text/html'},
+            headers: {'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryC7O5QpW9CRGSJ9V8'},
             autoUpload: true,   // 自动开始上传
             formData: [          // 和文件内容同时上传的form参数
               { id: 'file_AjaxFile' }
@@ -95,6 +140,7 @@ define(function (require) {
             filters: [           // 过滤器，可以对每个文件进行处理
               function (item) {
                 console.info('filter1', item);
+                $scope.vm.uploader.uploadAll();
                 $scope.fileName && ($scope.fileName += ' ' + item.name)
                 $scope.fileName || ($scope.fileName = item.name)
                 // $scope.fileUpload.PathName = nameSplit[0].substring(0,nameSplit[0].length-4);
