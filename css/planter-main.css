@@ -130,3 +130,40 @@ button a{padding:8px 0px;}
 #tab>img:not(:first-child){ display:none; }
 .activeCourse{background-color: #169b70;}
 #modal-courseList .activeCourse a:hover{background-color: #169b70;}
+
+/*a  upload */
+.a-upload {
+    /*padding: 4px 10px;
+    height: 34px;*/
+    /*line-height: 20px;*/
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    position: relative;
+    cursor: pointer;
+    color: #333;
+    background: #fff;
+    border: 1px solid #169b70;
+    border-radius: 4px;
+    /*overflow: hidden;*/
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+.a-upload  input {
+    position: absolute;
+    font-size: 14px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.a-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}

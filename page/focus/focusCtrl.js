@@ -88,6 +88,7 @@ define(function (require) {
                 open_class_id : common.Session.openClassId
             }, function (d) {
                 if(d.data.attention_begin == 1){
+                    $scope.duration = $scope.commonDuration; 
                     returnMessage("专注开启成功，请您耐心等待专注结果！");
                 }else{
                     returnMessage("专注开启失败，请重新开启！");
@@ -119,6 +120,7 @@ define(function (require) {
                 open_class_id : common.Session.openClassId
             }, function (d) {
                 if(d.data.attention_begin == 1){
+                    $scope.duration = $scope.groupDuration;
                     returnMessage("专注开启成功，请您耐心等待专注结果！");
                 }else{
                     returnMessage("专注开启失败，请重新开启！");

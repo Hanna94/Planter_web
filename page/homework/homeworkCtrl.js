@@ -34,8 +34,11 @@ define(function (require) {
                 homework_title: $scope.homeworkTitie,
             }, function (d) {
                 if(d.data.homework_publish_status == 1){
-                     returnMessage("作业发布成功！");
-                     getHomeworkList();
+                    returnMessage("作业发布成功！");
+                    getHomeworkList();
+                    $("#homeworkContent").html("");
+                    $("#homeworkEndTime").html("");
+                    $scope.homeworkTitie = null;
                 }else{
                     returnMessage("作业发布失败，请重新发布！");
                 }
@@ -95,6 +98,7 @@ define(function (require) {
                  if(d.data.group_teacher_score_status == 1){
                      returnMessage("打分成功，" + homework.student_name + "同学得到" + 
                         $("#"+homework.homework_submit_id).val() + "分！");
+                    getSubmitList(homework); 
                 }else{
                     returnMessage("打分失败，请重新打分！");
                 }

@@ -24,10 +24,20 @@ define(function (require) {
             });
         }
 
+        //更新资源
+        $scope.updateResource = function(){
+            setTimeout(function(){
+                // clearInterval(timer);
+                // $("#randomStudent").html(d.data.student_name);
+                getResourceList();
+            },100);
+        }
+
         //学生选择的课程
         $scope.selectedCourse = function (course){
             $scope.activeCourse = course;
             common.Session.activeCourse = course;
+            getResourceList();
         }
 
     }]);

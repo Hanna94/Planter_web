@@ -37,13 +37,13 @@
         var userName = $.cookie("cookieUserName");
         
         //判断跳转路径
-        // if(!userId){
-            // window.location.href = "/userlogin/login.html";
-        // }else if(rank == 0){
+        if(!userId){
+            window.location.href = "/userlogin/login.html";
+        }else if(rank == 0){
            window.location.href = "/#/course";
-        // }else{
-           // window.location.href = "/#/uploadHomework";
-        // }
+        }else{
+           window.location.href = "/#/uploadHomework";
+        }
         
     </script>
 

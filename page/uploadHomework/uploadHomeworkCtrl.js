@@ -4,6 +4,8 @@ define(function (require) {
     app.controller('uploadHomeworkCtrl', ['$scope','$http','WebApi','common', function($scope,$http,WebApi,common) {
 
         var studentId = $.cookie('cookieUserId');
+        // var studentId = 'aa4b3bc0-e9c3-4c9d-8c5e-0c80d6ae3b41';
+
         $scope.init = function () {
         	// getActiveCourse();
         
@@ -11,52 +13,8 @@ define(function (require) {
         	getCourseList();
 
         }
-  //       function getActiveCourse(){
-  //       	alert('sss');
-		// }
+
         //获取学生班级列表
-        //    "data": [
-    //     {
-    //         "c_id": "1a3c5d67-e0d4-400a-8e85-4d8c7da1a994",
-    //         "course_name": "口译 0"
-    //     },
-    //     {
-    //         "c_id": "3d87b4fd-b16d-47b1-9ace-cb7576270540",
-    //         "course_name": "口译 1"
-    //     },
-    //     {
-    //         "c_id": "41d6f346-ad85-480a-a53f-3796b4174247",
-    //         "course_name": "口译 2"
-    //     },
-    //     {
-    //         "c_id": "ad22a584-cdf8-4425-ac72-919805bb90e1",
-    //         "course_name": "口译 3"
-    //     },
-    //     {
-    //         "c_id": "acbc2420-ebf7-46ba-a07f-8a31b6f0db02",
-    //         "course_name": "口译 4"
-    //     },
-    //     {
-    //         "c_id": "ad06036f-3f0b-48d2-97bd-0ac55c7f47fb",
-    //         "course_name": "口译 5"
-    //     },
-    //     {
-    //         "c_id": "57bcf50c-9570-4ab5-a394-4daa52580bc2",
-    //         "course_name": "口译 6"
-    //     },
-    //     {
-    //         "c_id": "9f452232-036e-4bcf-8611-ab555f02e4c9",
-    //         "course_name": "口译 7"
-    //     },
-    //     {
-    //         "c_id": "784059eb-f097-4ffc-9df3-f0076b5d994c",
-    //         "course_name": "口译 8"
-    //     },
-    //     {
-    //         "c_id": "d146e6ac-d6d0-49ba-a003-ba89ef7aa5f3",
-    //         "course_name": "口译 9"
-    //     }
-    // ]
         function getCourseList (){
         	var url = "/web/login/getStudentCourseInfoList";
         	WebApi.Post(url,{
@@ -65,17 +23,23 @@ define(function (require) {
             },function(d){
                 if(d.data){
                 	$scope.courseList = d.data
-                	$scope.getActiveCourse(d.data[0]);;
+                    if(!common.Session.activeCourse){
+                        $scope.getActiveCourse(d.data[0],true);
+                    }else{
+                        $scope.getActiveCourse(common.Session.activeCourse,false);
+                    }
                 }else{
-                    // $("#resourceList").html("暂无资源，请先点击上传资源按钮进行资源上传...");
+                    // $("#homeworkList").html("暂无资源，请先点击上传资源按钮进行资源上传...");
                 }
 
             });
         }		
 
         //获取当前课程信息
-        $scope.getActiveCourse = function(course){
-        	$("#modal-courseList").modal("show");
+        $scope.getActiveCourse = function(course,flag){
+            if(flag){
+                $("#modal-courseList").modal("show");
+            }
         	$scope.activeCourse = course; 
         	common.Session.activeCourse || (common.Session.activeCourse = course)
         	var url = "/web/homework/getStudentHomeworkInfoList";
@@ -85,9 +49,10 @@ define(function (require) {
             },function(d){
                 if(d.data){
                 	$scope.homeworkList = d.data
-                	// $scope.getActiveCourse(d.data[0]);;
+                	// $scope.getActiveCourse(d.data[0]);
                 }else{
-                    returnMessage("当前课程暂无作业信息，请切换其他课程！")
+                    // returnMessage("当前课程暂无作业信息，请切换其他课程！")
+                    $("#homeworkList").html("当前课程暂无作业信息，请切换其他课程！");
                 }
 
             });
@@ -97,6 +62,7 @@ define(function (require) {
         $scope.selectedCourse = function (course){
         	$scope.activeCourse = course;
         	common.Session.activeCourse = course;
+            $scope.getActiveCourse(course,false);
         }
 
         //显示作业详情
@@ -111,6 +77,70 @@ define(function (require) {
             $("#modal-errorInfo").modal('show');
             $("#infoContent").html(content);
         }
+
+        //上传文件
+        $scope.fileUpload = function(task){
+            $scope.activeTask = task
+            fileUploadAjax(task)
+        }
+        function fileUploadAjax(task) {
+            if ($("#" + task.homework_id).val().length > 0) {
+                //progressInterval=setInterval(getProgress,500);
+                $.ajaxFileUpload({
+                    url: 'http://192.168.235.50:8080/FileUpload/studentFileUpload', //用于文件上传的服务器端请求地址
+                    type: "post",
+                    secureuri: false, //一般设置为false
+                    fileElementId: task.homework_id, //文件上传空间的id属性  <input type="file" id="file1" name="file" />
+                    dataType: 'application/json', //返回值类型 一般设置为json
+                    data: {                    
+                        's_id': studentId,
+                        'c_id': $scope.activeCourse.c_id,
+                        'homework_id': $scope.activeTask.homework_id ,
+                        'homework_student_submit_time': new Date().Format("yyyy-MM-dd hh:mm:ss")                 
+                    },
+                    success: function (data)  //服务器成功响应处理函数
+                    {
+                        returnMessage("作业上传成功！");
+                        $scope.getActiveCourse(common.Session.activeCourse,false);
+                        // var jsonObject = eval('(' + data + ')');
+                        // $("#sp_AjaxFile").html(" Upload Success ！ filePath:" + jsonObject.filePath);
+                    },
+                    error: function (data /*status, e*/)//服务器响应失败处理函数
+                    {
+                        // console.log("0");
+                        // getResourceList();
+                    }
+                });//end ajaxfile
+            }
+            else {
+                alert("请选择文件!");
+            }
+        }
+
+        // 对Date的扩展，将 Date 转化为指定格式的String
+        // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
+        // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 
+        // 例子： 
+        // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
+        // (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
+        Date.prototype.Format = function(fmt)   
+        { //author: meizz   
+          var o = {   
+            "M+" : this.getMonth()+1,                 //月份   
+            "d+" : this.getDate(),                    //日   
+            "h+" : this.getHours(),                   //小时   
+            "m+" : this.getMinutes(),                 //分   
+            "s+" : this.getSeconds(),                 //秒   
+            "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+            "S"  : this.getMilliseconds()             //毫秒   
+          };   
+          if(/(y+)/.test(fmt))   
+            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+          for(var k in o)   
+            if(new RegExp("("+ k +")").test(fmt))   
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+          return fmt;   
+        } 
 
 
     }]);

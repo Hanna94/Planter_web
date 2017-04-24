@@ -53,11 +53,22 @@ define(function (require) {
             $scope.activeResource = resource;
         }
 
+        //更新资源
+        $scope.updateResource = function(){
+            setTimeout(function(){
+                // clearInterval(timer);
+                // $("#randomStudent").html(d.data.student_name);
+                getResourceList();
+            },100);
+        }
+
         //用户提示弹出框
         function returnMessage(content){
             $("#modal-errorInfo").modal('show');
             $("#infoContent").html(content);
         }
+
+        //上传文件
         $scope.fileUpload = function(){
             fileUploadAjax()
         }
@@ -76,13 +87,14 @@ define(function (require) {
                     success: function (data)  //服务器成功响应处理函数
                     {
                         console.log("1");
+                        returnMessage("资源上传成功！");
                         getResourceList();
                         // var jsonObject = eval('(' + data + ')');
                         // $("#sp_AjaxFile").html(" Upload Success ！ filePath:" + jsonObject.filePath);
                     },
                     error: function (data /*status, e*/)//服务器响应失败处理函数
                     {
-                        console.log("0");
+                        // console.log("0");
                         // getResourceList();
                     }
                 });//end ajaxfile
@@ -132,7 +144,7 @@ define(function (require) {
             vm.uploader = $fileUploader.create({
             scope: $scope,
             url: 'http://192.168.235.50:8080/FileUpload/fileUpload_ajax',
-            headers: {'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryC7O5QpW9CRGSJ9V8'},
+            // headers: {'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryC7O5QpW9CRGSJ9V8'},
             autoUpload: true,   // 自动开始上传
             formData: [          // 和文件内容同时上传的form参数
               { id: 'file_AjaxFile' }

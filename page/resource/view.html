@@ -28,7 +28,7 @@
 			                    </div>
 			                    <div class="col-md-1">
 			                    	<div class="left">
-				                        <a href="{{r.resource_download_url}}" class="pointer" style="margin-left:-5px;"><i class="glyphicon glyphicon-save resource-icon" ></i></a>
+				                        <a href="{{r.resource_download_url}}" class="pointer" style="margin-left:-5px;" ng-click="updateResource()"><i class="glyphicon glyphicon-save resource-icon" ></i></a>
 				                        <label>{{r.resource_download_count}}</label>
 				                    </div>
 			                    </div>
@@ -42,12 +42,12 @@
 		            	</div>
 		                <!-- <input type="file" name=""> -->
                     	<!-- <div id="uploadResource"></div> -->
-                    	<form name="form5" action="/" method="post" enctype="multipart/form-data">
-						    <input type="file" id="file_AjaxFile" name="file_AjaxFile">
-						    <input type="button" value="upload" ng-click="fileUpload()"/><span id="sp_AjaxFile"></span>
+                    	<form name="form5" action="/" method="post" enctype="multipart/form-data" class="center">
+                    		<a href="javascript:;" class="a-upload course-btn">
+							    <input type="file" id="file_AjaxFile" name="file_AjaxFile">选择文件
+							</a>
+	                    	<a class="btn btn-default course-btn" ng-click="fileUpload()">上传 <i class="glyphicon glyphicon-open icon-color pointer"></i></a>
 
-
-						    <!--上传进度：<span id="sp_fileUploadProgress">0%</span>-->
 						</form>
                     	<!-- <div class="webuploader-pick pointer" style="">
 		          			上传资源 <i class="glyphicon glyphicon-open icon-color pointer"></i>
