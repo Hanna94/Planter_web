@@ -14,8 +14,19 @@ define(function (require) {
             $scope.activeCourseTime = common.Session.activeCourseTime;
             $scope.isHomeworkList = false;
             getHomeworkList();
+            getStudentList();
         }
 
+        //获取学生列表
+        function getStudentList() {
+            var url = "/web/randomAsk/enterAskModule";
+            WebApi.Post(url, {
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId
+            }, function (d) {
+                $scope.studentList = d.data;
+            });
+        }
         
         //显示发布作业界面
         $scope.showPublish = function () {

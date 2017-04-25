@@ -53,7 +53,7 @@
 					<div class="box-content center fix-height" ng-show="isReceived">
 						<!-- <button class="btn btn-success" ng-click ="toExcel('customers')">Excel Export</button>  --> 
 						<br>
-						<a href="javascript:;" ng-click="backAttendance()" class="pull-left underline-a" style="margin-left:20px;"> >>返回考勤</a>
+						<a href="javascript:;" ng-click="backAttendance()" class="pull-left underline-a" style="margin-left:20px;"> <<返回考勤</a>
 						<!-- <img src="images/download_icon.gif" class="download-icon pointer pull-right" ng-click="toExcel('customers')" alt="点击下载" title="点击下载" style="margin-right:20px;"> -->
 	                    <br><br>  
 	                    <div class="tableContainer">
@@ -64,7 +64,7 @@
 		        </div><br>
 		        <button type="submit" ng-hide="isStart" class="btn btn-default course-btn" ng-click="startClass()">开课</button>
 		        <p class="center" ng-show="isStart">
-	                <button type="submit" class="btn btn-default course-btn">收集总结反馈</button>
+	                <button type="submit" class="btn btn-default course-btn" ng-click="summary()">收集总结反馈</button>
 	                <button type="submit" class="btn btn-default course-btn space-80" ng-click="endClass(false,false)">结课</button>
 	            </p>
 		    </div>
@@ -102,10 +102,11 @@
 		                <span class="title-icon"><i class="glyphicon glyphicon-education"></i> </span>
 		                <span class="title-content pull-left">学生列表</span>
 		            </div>
-		            <div class="student-list">
-		                <p>李同学</p>
-		                <p>黄同学</p>
-		            </div>
+		            <div class="student-box">
+			            <div class="student-list">
+			                <p ng-repeat="s in studentList">{{s.student_name}}</p>
+			            </div>
+			        </div>
 		        </div>
 		    </div>
 		</div><!--/row-->

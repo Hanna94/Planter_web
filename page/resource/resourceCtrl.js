@@ -13,6 +13,18 @@ define(function (require) {
             $scope.activeCourse = common.Session.activeCourse;
             $scope.activeCourseTime = common.Session.activeCourseTime;
             getResourceList();
+            getStudentList();
+        }
+
+        //获取学生列表
+        function getStudentList() {
+            var url = "/web/randomAsk/enterAskModule";
+            WebApi.Post(url, {
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId
+            }, function (d) {
+                $scope.studentList = d.data;
+            });
         }
 
         //获取资源列表

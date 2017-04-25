@@ -97,10 +97,11 @@
 		                <span class="title-icon"><i class="glyphicon glyphicon-education"></i> </span>
 		                <span class="title-content pull-left">学生列表</span>
 		            </div>
-		            <div class="student-list">
-		                <p>李同学</p>
-		                <p>黄同学</p>
-		            </div>
+		            <div class="student-box">
+			            <div class="student-list">
+			                <p ng-repeat="s in studentList">{{s.student_name}}</p>
+			            </div>
+			        </div>
 		        </div>
 		    </div>
 		</div><!--/row-->

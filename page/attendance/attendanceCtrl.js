@@ -15,6 +15,10 @@ define(function (require) {
             // $scope.attendanceList = [];
 
             // getLocation();
+            getStudentList();
+            if(common.Session.attendanceCode){
+                $scope.attendanceCode = common.Session.attendanceCode;
+            }
         }
 
         //开课
@@ -41,6 +45,33 @@ define(function (require) {
                     getCode();
                 }else{
                     returnMessage("开课失败，请重新开课！");
+                }
+            });
+        }
+
+        //获取学生列表
+        function getStudentList() {
+            var url = "/web/randomAsk/enterAskModule";
+            WebApi.Post(url, {
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId
+            }, function (d) {
+                $scope.studentList = d.data;
+            });
+        }
+
+        //收集总结反馈
+        $scope.summary = function(){
+            var url = "/web/summary/summarySend";
+            WebApi.Post(url, {
+                summary_request_time: new Date().Format("yyyy-MM-dd hh:mm:ss"),
+                open_class_id: common.Session.openClassId,
+                t_id :teacherId
+            }, function (d) {
+                if(d.data.summary_status == 1){
+                    returnMessage("收集反馈已开启，请您稍后去【往期考勤与反馈】查看！");
+                }else{
+                    returnMessage("收集反馈失败，请重新收集！");
                 }
             });
         }
@@ -82,6 +113,7 @@ define(function (require) {
             }, function (d) {
                 if(d.error_code == 200){
                     $scope.attendanceCode = d.data.attendance_code;
+                    common.Session.attendanceCode = $scope.attendanceCode;
                 }
             });
         }
@@ -273,10 +305,6 @@ define(function (require) {
                 },
                 clickToSelect: true,
                 columns: [{
-                    field: 'course_times',
-                    align: 'center',
-                    title: '课时'
-                }, {
                     field: 'class_open_time',
                     align: 'center',
                     title: '开课时间'

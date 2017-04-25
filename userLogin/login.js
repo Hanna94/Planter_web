@@ -113,12 +113,16 @@
         //用户注册
         function register(){
             var url = "http://192.168.235.55:8080/web/signup";
-            var userType=$('input:radio[name="userType"]:checked').val();
-            if(true){
+            if(($('#Password').val())!=($('#conformPassword').val())){
+                alert("两次输入密码不一致，请重新输入！");
+                return false;
+            }
+            // var userType=$('input:radio[name="userType"]:checked').val();
+            if(checkUserPwd('conform')&&checkUserPwd()){
                 var data = { 
                     userName: $('#UserName').val(), 
-                    userPassword: $('#Password').val(),
-                    Rank: parseInt(userType)
+                    userPassword: $('#Password').val()
+                    // Rank: parseInt(userType)
                 };
                 console.log(data);
                 $.ajax({ 
@@ -166,8 +170,9 @@
                     }                 
                 });  
             }else{ 
-                checkUserName(); 
+                // checkUserName(); 
                 checkUserPwd(); 
-                checkCheckCode(); 
+                checkUserPwd('conform');
+                // checkCheckCode(); 
             } 
         }

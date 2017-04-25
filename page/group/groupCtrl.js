@@ -13,6 +13,18 @@ define(function (require) {
             $scope.activeCourse = common.Session.activeCourse;
             $scope.activeCourseTime = common.Session.activeCourseTime;
             isOpenGroup();
+            getStudentList();
+        }
+
+        //获取学生列表
+        function getStudentList() {
+            var url = "/web/randomAsk/enterAskModule";
+            WebApi.Post(url, {
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId
+            }, function (d) {
+                $scope.studentList = d.data;
+            });
         }
 
         //是否开通分组并获取小组列表
@@ -24,7 +36,7 @@ define(function (require) {
             }, function (d) {
                 if(d.data.group_open){
                     $scope.isOpenGroup = true;
-                    if(!d.data.group_info_list){
+                    if(d.data.group_info_list.length == 0){
                         $("#group").html("等待学生分组...");
                     }else{
                         $scope.groupList = d.data.group_info_list;

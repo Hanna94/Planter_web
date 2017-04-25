@@ -44,7 +44,7 @@
 			                <div class="box-inner" ng-show="isHomeworkList">
 			                	<div style="height:300px;overflow-y:auto;overflow-x:hidden;padding:5px;" id="submitList">
 			            		<br>
-			            		<p class="clearfix"><a href="javascript:;" ng-click="backHomework()" class="pull-left underline-a" style="margin-left:20px;"> >>返回作业</a></p>
+			            		<p class="clearfix"><a href="javascript:;" ng-click="backHomework()" class="pull-left underline-a" style="margin-left:20px;"> <<返回作业</a></p>
 			            		<br>
 				                <div class="row reset-row" ng-repeat="s in submitList" style="border:solid 1px #ddd; margin-bottom:15px; padding:10px 0px;">
 				                    <div class="col-md-3"><strong class="">{{s.student_name}}</strong></div>
@@ -95,10 +95,11 @@
 		                <span class="title-icon"><i class="glyphicon glyphicon-education"></i> </span>
 		                <span class="title-content pull-left">学生列表</span>
 		            </div>
-		            <div class="student-list">
-		                <p>李同学</p>
-		                <p>黄同学</p>
-		            </div>
+		            <div class="student-box">
+			            <div class="student-list">
+			                <p ng-repeat="s in studentList">{{s.student_name}}</p>
+			            </div>
+			        </div>
 		        </div>
 		    </div>
 		</div><!--/row-->

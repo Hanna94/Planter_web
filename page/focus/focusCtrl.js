@@ -15,6 +15,18 @@ define(function (require) {
             $scope.isStart = common.Session.isStart;
             $scope.isChosen = true;
             $scope.stop = true;
+            getStudentList();
+        }
+
+        //获取学生列表
+        function getStudentList() {
+            var url = "/web/randomAsk/enterAskModule";
+            WebApi.Post(url, {
+                c_id: $scope.activeCourse.c_id,
+                t_id :teacherId
+            }, function (d) {
+                $scope.studentList = d.data;
+            });
         }
 
         //开课

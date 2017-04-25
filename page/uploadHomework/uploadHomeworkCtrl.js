@@ -21,7 +21,7 @@ define(function (require) {
                 // c_id: $scope.activeCourse.c_id,
                 s_id :studentId
             },function(d){
-                if(d.data){
+                if(d.data.length!=0){
                 	$scope.courseList = d.data
                     if(!common.Session.activeCourse){
                         $scope.getActiveCourse(d.data[0],true);
@@ -29,7 +29,7 @@ define(function (require) {
                         $scope.getActiveCourse(common.Session.activeCourse,false);
                     }
                 }else{
-                    // $("#homeworkList").html("暂无资源，请先点击上传资源按钮进行资源上传...");
+                    $("#homeworkList").html("当前尚未加入任何课程，请先在手机端加入课程...");
                 }
 
             });
