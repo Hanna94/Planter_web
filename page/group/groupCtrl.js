@@ -58,6 +58,7 @@ define(function (require) {
             WebApi.Post(url, {
                 t_id :teacherId,
                 c_id :$scope.activeCourse.c_id,
+                group_open_time: new Date().Format("yyyy-MM-dd hh:mm:ss"),
                 group_member_min :$scope.groupMin,
                 group_member_max :$scope.groupMax
             }, function (d) {
