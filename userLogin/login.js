@@ -1,6 +1,7 @@
     jQuery.support.cors = true;
  // var host = "http://118.89.48.183:8080/Planter/login";
- var host = "http://192.168.235.50:8080/login";
+ // var host = "http://192.168.235.50:8080/login";
+ var host = "http://10.173.8.165:8080/login";
         var code=null;
         //var admin="";
         function login(user){

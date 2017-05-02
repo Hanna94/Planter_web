@@ -167,7 +167,8 @@ define(function (require) {
         	WebApi.Post(url, {
                 // attendance_code: $scope.attendanceCode,
                 c_id: $scope.activeCourse.c_id,
-                t_id :teacherId
+                t_id :teacherId,
+                open_class_id : common.Session.openClassId
             }, function (d) {
                 $scope.feedbackList = d.data;
                 creatTableList();
@@ -181,9 +182,10 @@ define(function (require) {
         	WebApi.Post(url, {
                 // attendance_code: $scope.attendanceCode,
                 c_id: $scope.activeCourse.c_id,
-                s_id: student.s_id,
+                // s_id: student.s_id,
                 t_id: teacherId,
-                class_open_time :student.class_open_time
+                class_open_time :student.class_open_time,
+                open_class_id : common.Session.openClassId
             }, function (d) {
                 $scope.feedbackDetail = d.data;
                 creatTableDetail();

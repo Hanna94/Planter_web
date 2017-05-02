@@ -20,12 +20,12 @@
 				                        <div class="">
 				                            <p class="">{{h.homework_submit_ddl}}</p>
 				                            <p class="pointer grey">已交{{h.homework_submit_num}}人次 >> </p>
-				                            <p class="center" ng-show="{{h.homework_status != 0}}">已提交</p>
+				                            <p class="center" ng-show="{{h.homework_status == 1}}">已提交</p>
 				                            <p class="center pointer" ng-show="{{h.homework_status == 0}}" style="position:relative">
 				                            	<!-- <div id="uploadHomework1"></div> -->
 				                            	<!-- <i class="glyphicon glyphicon-open pointer icon-color pointer"></i> -->
 				                            	<!-- <input class="pointer" style="position:absolute;width:100px;height:20px;top:0px;left:-20px; opacity: 0;z-index:1000;" type="file" ng-file-select name="" id="" multiple/> -->
-				                            	<form name="form5" action="/" method="post" enctype="multipart/form-data" class="center">
+				                            	<form name="form5" action="/" method="post" enctype="multipart/form-data" class="center" ng-show="{{h.homework_status == 0}}">
 						                    		<a href="javascript:;" class="a-upload course-btn">
 													    <input type="file" id="{{h.homework_id}}" name="file_AjaxFile">选择文件
 													</a>
