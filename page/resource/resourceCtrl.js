@@ -89,7 +89,7 @@ define(function (require) {
                 //progressInterval=setInterval(getProgress,500);
                 $.ajaxFileUpload({
                     // url: 'http://192.168.235.50:8080/FileUpload/fileUpload_ajax', //用于文件上传的服务器端请求地址
-                    url: 'http://10.173.8.165:8080/FileUpload/fileUpload_ajax', //用于文件上传的服务器端请求地址
+                    url: 'http://118.89.48.183:8080/Planter/FileUpload/fileUpload_ajax', //用于文件上传的服务器端请求地址
                     type: "post",
                     secureuri: false, //一般设置为false
                     fileElementId: 'file_AjaxFile', //文件上传空间的id属性  <input type="file" id="file1" name="file" />
@@ -132,7 +132,7 @@ define(function (require) {
         //上传资源
         //插件ajaxfileupload.js
         $('#uploadResource').diyUpload({
-	        url:'http://192.168.235.50:8080/FileUpload/fileUpload_ajax',
+	        url:'http://118.89.48.183:8080/FileUpload/fileUpload_ajax',
 	        success:function( data ) {
 	            console.info( data );
 	            //完成上传后再次获取资源列表
